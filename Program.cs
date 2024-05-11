@@ -16,7 +16,8 @@ static class Program
         ApplicationConfiguration.Initialize();
         var f = new Form1();
         var m = new SignalModel();
-        var c = new SignalController(m, f);
+        var flt = new FilterModel(250);
+        var c = new SignalController(m, flt, f);
         f.ShowDialog();
         //Application.Run(new Form1()); 
     }    

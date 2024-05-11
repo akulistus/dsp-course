@@ -12,5 +12,6 @@ namespace dsp_course
         void refreshGraphs();
         void SetController(ISignalController controller);
         void setGraphDataSource(double[] first, double[] second, double[] third);
+        void updateTable(Dictionary<string, List<double>> filtered, Dictionary<string, List<double>> teta);
     }
 }
