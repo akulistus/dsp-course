@@ -20,6 +20,7 @@ public partial class Form1 : Form, IView
         plot1.Controls.Add(plot_1);
         plot2.Controls.Add(plot_2);
         plot3.Controls.Add(plot_3);
+        comboBox1.SelectedIndex = 0;
     }
 
     public void SetController(ISignalController controller)
@@ -50,13 +51,13 @@ public partial class Form1 : Form, IView
 
     public void updateTable(Dictionary<string, List<double>> filtered, Dictionary<string, List<double>> teta)
     {
-        foreach(var item in filtered)
+        foreach (var item in filtered)
         {
             DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
             row.Cells[0].Value = $"{item.Key}";
-            row.Cells[1].Value = $"{Math.Round(item.Value[0], 3)}/{Math.Round(teta[item.Key][0], 3)}";
-            row.Cells[2].Value = $"{Math.Round(item.Value[1], 3)}/{Math.Round(teta[item.Key][1], 3)}";
-            row.Cells[3].Value = $"{Math.Round(item.Value[2], 3)}/{Math.Round(teta[item.Key][2], 3)}";
+            row.Cells[1].Value = $"{Math.Round(item.Value[0], 3)} / {Math.Round(teta[item.Key][0], 3)}";
+            row.Cells[2].Value = $"{Math.Round(item.Value[1], 3)} / {Math.Round(teta[item.Key][1], 3)}";
+            row.Cells[3].Value = $"{Math.Round(item.Value[2], 3)} / {Math.Round(teta[item.Key][2], 3)}";
             dataGridView1.Rows.Add(row);
         }
     }
@@ -94,4 +95,14 @@ public partial class Form1 : Form, IView
         controller.displayTeta();
     }
 
+    private void button1_Click(object sender, EventArgs e)
+    {
+        if (folderBrowserDialog1.ShowDialog() == DialogResult.Cancel)
+        {
+            return;
+        }
+
+        string path = folderBrowserDialog1.SelectedPath;
+        controller.saveFile(path, comboBox1.Text);
+    }
 }

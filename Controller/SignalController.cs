@@ -1,11 +1,8 @@
 ﻿using dsp_course.Controller.Interfaces;
 using dsp_course.Model;
 using dsp_course.Model.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ScottPlot.TickGenerators.TimeUnits;
+using System.IO;
 
 namespace dsp_course.Controller
 {
@@ -25,6 +22,7 @@ namespace dsp_course.Controller
 
         public void openFile(string filepath)
         {
+            _model._filename = Path.GetFileNameWithoutExtension(filepath);
             List<double> first = new List<double>();
             List<double> second = new List<double>();
             List<double> third = new List<double>();
@@ -62,6 +60,28 @@ namespace dsp_course.Controller
             var (stat1, stat2) = _model.getStatistics();
 
             _view.updateTable(stat1, stat2);
+        }
+
+        public void saveFile(string path, string glyph)
+        {
+            string newpath = Path.Join(path, _model._filename);
+            var(first, second, third) =_model.getRawSignals();
+            var combinedLines = first
+            .Zip(second, (a, b) => new { a, b })
+            .Zip(third, (ab, c) => $"{ab.a}\t{ab.b}\t{c}");
+            File.WriteAllLines(newpath+"i.txt", combinedLines);
+
+            (first, second, third) = _model.get50HzLowTrdSignals();
+            combinedLines = first
+            .Zip(second, (a, b) => new { a, b })
+            .Zip(third, (ab, c) => $"{ab.a}\t{ab.b}\t{c}");
+            File.WriteAllLines(newpath + "f.txt", combinedLines);
+
+            (first, second, third) = _model.getTetaSignals();
+            combinedLines = first
+            .Zip(second, (a, b) => new { a, b })
+            .Zip(third, (ab, c) => $"{ab.a}\t{ab.b}\t{c}");
+            File.WriteAllLines(newpath + $"{glyph}.txt", combinedLines);
         }
 
         public void displayRaw()

@@ -8,6 +8,7 @@ namespace dsp_course.Model.Interfaces
 {
     internal interface ISignalModel
     {
+        string _filename { get; set; }
         (double[], double[], double[]) getTetaSignals();
         (double[], double[], double[]) getRawSignals();
         (double[], double[], double[]) get50HzSignals();

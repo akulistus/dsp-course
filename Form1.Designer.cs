@@ -45,6 +45,9 @@ partial class Form1
         Ch1 = new DataGridViewTextBoxColumn();
         Ch2 = new DataGridViewTextBoxColumn();
         Ch3 = new DataGridViewTextBoxColumn();
+        button1 = new Button();
+        folderBrowserDialog1 = new FolderBrowserDialog();
+        comboBox1 = new ComboBox();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
         SuspendLayout();
@@ -192,11 +195,32 @@ partial class Form1
         Ch3.Name = "Ch3";
         Ch3.ReadOnly = true;
         // 
+        // button1
+        // 
+        button1.Location = new Point(12, 359);
+        button1.Name = "button1";
+        button1.Size = new Size(75, 23);
+        button1.TabIndex = 10;
+        button1.Text = "Сохранить";
+        button1.UseVisualStyleBackColor = true;
+        button1.Click += button1_Click;
+        // 
+        // comboBox1
+        // 
+        comboBox1.FormattingEnabled = true;
+        comboBox1.Items.AddRange(new object[] { "δ", "θ", "α", "β" });
+        comboBox1.Location = new Point(12, 170);
+        comboBox1.Name = "comboBox1";
+        comboBox1.Size = new Size(121, 23);
+        comboBox1.TabIndex = 11;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1120, 800);
+        Controls.Add(comboBox1);
+        Controls.Add(button1);
         Controls.Add(dataGridView1);
         Controls.Add(radioButton5);
         Controls.Add(radioButton4);
@@ -235,4 +259,7 @@ partial class Form1
     private DataGridViewTextBoxColumn Ch1;
     private DataGridViewTextBoxColumn Ch2;
     private DataGridViewTextBoxColumn Ch3;
+    private Button button1;
+    private FolderBrowserDialog folderBrowserDialog1;
+    private ComboBox comboBox1;
 }

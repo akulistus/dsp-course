@@ -11,7 +11,8 @@ namespace dsp_course.Model
 {
     internal class SignalModel : ISignalModel
     {
-        private string _filepath;
+        public string _filename { get; set; }
+
         private Dictionary<string, List<double>> _filterStatistics = new Dictionary<string, List<double>>()
         {
             ["MD"] = new List<double>(),
@@ -149,5 +150,6 @@ namespace dsp_course.Model
         {
             return (_filterStatistics, _tetaStatistics);
         }
+
     }
 }
