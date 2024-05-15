@@ -1,6 +1,7 @@
 using dsp_course.Controller.Interfaces;
 using dsp_course.Model;
 using dsp_course.Model.Interfaces;
+using ScottPlot;
 using ScottPlot.WinForms;
 namespace dsp_course;
 
@@ -40,6 +41,22 @@ public partial class Form1 : Form, IView
         plot_1.Plot.Clear();
         plot_2.Plot.Clear();
         plot_3.Plot.Clear();
+
+        static string CustomFormatter(double position)
+        {
+            return $"{position / 250}";
+        }
+
+        // create a custom tick generator using your custom label formatter
+        ScottPlot.TickGenerators.NumericAutomatic myTickGenerator = new()
+        {
+            LabelFormatter = CustomFormatter
+        };
+
+        // tell an axis to use the custom tick generator
+        plot_1.Plot.Axes.Bottom.TickGenerator = myTickGenerator;
+        plot_2.Plot.Axes.Bottom.TickGenerator = myTickGenerator;
+        plot_3.Plot.Axes.Bottom.TickGenerator = myTickGenerator;
 
         plot_1.Plot.Add.Signal(first);
         plot_1.Plot.Axes.AutoScale();
